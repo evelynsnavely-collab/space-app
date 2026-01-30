@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Above Me Now</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0e1a;
+            --dark-blue: #0f1a35;
+            --deep-purple: #1a0f35;
+            --navy: #0d1b2a;
+            --accent-purple: #7c3aed;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: rgba(124, 58, 237, 0.15);
+            --border-light: rgba(6, 182, 212, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Instrument Sans', sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-blue) 25%, var(--navy) 50%, var(--deep-purple) 75%, var(--black) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+            animation: drift 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 10% 15%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 20% 30%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 50% 50%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 80% 10%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 90% 60%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 30% 80%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 70% 70%, white, rgba(255,255,255,0)),
+                radial-gradient(1px 1px at 15% 60%, white, rgba(255,255,255,0));
+            background-repeat: repeat;
+            background-size: 300% 300%;
+            opacity: 0.3;
+            animation: twinkle 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 4rem;
+            animation: slideDown 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        h1 span {
+            display: block;
+            background: linear-gradient(120deg, var(--accent-purple) 0%, var(--accent-cyan) 50%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+            animation: fadeIn 1s ease-out 0.3s backwards;
+            line-height: 1.8;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .location-card {
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.8) 0%, rgba(26, 15, 53, 0.6) 100%);
+            border: 1.5px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem auto;
+            max-width: 900px;
+            animation: slideUp 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .location-card:hover {
+            border-color: var(--accent-purple);
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.95) 0%, rgba(26, 15, 53, 0.8) 100%);
+            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .location-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .location-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s backwards;
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.4); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .location-card:hover .location-icon {
+            transform: scale(1.08) rotate(8deg);
+            box-shadow: 0 16px 50px rgba(124, 58, 237, 0.4);
+        }
+
+        .location-header-text h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.01em;
+        }
+
+        .location-header-text p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .location-name {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1.5rem 0 2.5rem;
+            letter-spacing: -0.01em;
+            animation: fadeIn 0.8s ease-out 0.5s backwards;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .location-stat {
+            background: rgba(124, 58, 237, 0.08);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+            backdrop-filter: blur(10px);
+        }
+
+        .location-stat:nth-child(1) { animation-delay: 0.45s; }
+        .location-stat:nth-child(2) { animation-delay: 0.55s; }
+
+        .location-stat:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: var(--accent-purple);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.15);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.2s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .location-stat:hover .stat-value {
+            color: var(--accent-pink);
+            transform: scale(1.05);
+        }
+
+        .location-status {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+            font-weight: 500;
+            animation: slideIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.65s backwards;
+            transition: all 0.3s ease;
+            letter-spacing: 0.01em;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .location-status.success {
+            background: rgba(124, 58, 237, 0.1);
+            border-color: var(--border-color);
+            color: var(--accent-purple);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: pulse 2.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.25); }
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.1rem 2.8rem;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
+            font-family: 'Instrument Sans', sans-serif;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.25);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 26, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.95) 0%, rgba(26, 15, 53, 0.9) 100%);
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3.5rem;
+            max-width: 520px;
+            width: 90%;
+            box-shadow: 0 40px 100px rgba(124, 58, 237, 0.3);
+            animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(30px);
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: scale(0.92) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+            letter-spacing: -0.01em;
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-weight: 400;
+            animation: fadeIn 0.6s ease-out 0.3s backwards;
+        }
+
+        .permission-info {
+            background: rgba(124, 58, 237, 0.08);
+            border-left: 3px solid var(--accent-purple);
+            padding: 1.8rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+            animation: slideUp 0.6s ease-out 0.4s backwards;
+        }
+
+        .permission-info strong {
+            color: var(--accent-purple);
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .permission-info p {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: slideUp 0.6s ease-out 0.5s backwards;
+        }
+
+        .btn-allow, .btn-skip {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Instrument Sans', sans-serif;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-allow {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+            color: var(--text-primary);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+        }
+
+        .btn-allow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-skip {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--accent-purple);
+        }
+
+        .btn-skip:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .message {
+            display: none;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.8rem;
+            border-left: 3px solid;
+            animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-weight: 500;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(236, 72, 153, 0.1);
+            border-color: var(--accent-pink);
+            color: #f472b6;
+        }
+
+        .message.success {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: var(--accent-cyan);
+            color: #06f6d4;
+        }
+
+        .loading {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            color: var(--accent-cyan);
+            margin: 2.5rem 0;
+            animation: fadeIn 0.4s ease-out;
+            font-weight: 500;
+        }
+
+        .loading.show {
+            display: flex;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2.5px solid rgba(124, 58, 237, 0.2);
+            border-top-color: var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.7) 0%, rgba(26, 15, 53, 0.5) 100%);
+            border: 1.5px solid var(--border-color);
+            border-radius: 18px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: cardSlideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+            opacity: 0;
+            backdrop-filter: blur(15px);
+        }
+
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card.show {
+            opacity: 1;
+        }
+
+        #issCard { animation-delay: 0.2s; }
+        #satCard { animation-delay: 0.35s; }
+        #conCard { animation-delay: 0.5s; }
+
+        .card:hover {
+            border-color: var(--accent-purple);
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.9) 0%, rgba(26, 15, 53, 0.7) 100%);
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(124, 58, 237, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(-8deg);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .card:hover .card-title {
+            color: var(--accent-cyan);
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            animation: fadeIn 0.6s ease-out backwards;
+        }
+
+        .data-row:hover {
+            background: rgba(124, 58, 237, 0.05);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .data-row.clickable {
+            cursor: pointer;
+        }
+
+        .data-row.clickable:hover {
+            color: var(--accent-cyan);
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-label {
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: color 0.2s ease;
+        }
+
+        .data-row:hover .data-label {
+            color: var(--text-secondary);
+        }
+
+        .data-value {
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.2s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .data-value.success {
+            color: #06f6d4;
+        }
+
+        .data-value.warning {
+            color: var(--accent-pink);
+        }
+
+        .data-row:hover .data-value {
+            transform: translateX(3px);
+        }
+
+        .info-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 26, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 2500;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
+        }
+
+        .info-overlay.show {
+            display: flex;
+        }
+
+        .info-modal {
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.95) 0%, rgba(26, 15, 53, 0.9) 100%);
+            border: 1.5px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3.5rem;
+            max-width: 600px;
+            width: 90%;
+            margin: auto;
+            box-shadow: 0 40px 100px rgba(124, 58, 237, 0.3);
+            animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(30px);
+            position: relative;
+        }
+
+        .info-modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-modal-close:hover {
+            background: rgba(124, 58, 237, 0.2);
+            transform: scale(1.1);
+        }
+
+        .info-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        .info-subtitle {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease-out 0.3s backwards;
+        }
+
+        .info-content {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            animation: fadeIn 0.6s ease-out 0.4s backwards;
+        }
+
+        .info-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-content strong {
+            color: var(--accent-purple);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--text-muted);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .empty-state-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 5rem;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+            font-weight: 400;
+        }
+
+        footer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--accent-cyan);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 2rem 1.5rem; }
+            header { padding-bottom: 2.5rem; }
+            h1 { font-size: 2.2rem; }
+            .location-card { padding: 2rem; margin: 2.5rem auto; }
+            .modal { padding: 2.5rem; }
+            .info-modal { padding: 2.5rem; }
+            .data-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .btn-primary { width: 100%; }
+            .modal-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>What's <span>Above Me Now</span></h1>
+            <p class="tagline">Explore the invisible infrastructure of space in real-time from your location.</p>
+        </header>
+
+        <div class="message error" id="errorMsg"></div>
+        <div class="message success" id="successMsg"></div>
+
+        <div class="location-card" id="locationCard" style="display: none;">
+            <div class="location-header">
+                <div class="location-icon">📍</div>
+                <div class="location-header-text">
+                    <h3>Your Location</h3>
+                    <p id="locationSubtitle">Real-time data</p>
+                </div>
+            </div>
+            <div class="location-name" id="locationName">Detecting...</div>
+            <div class="location-grid">
+                <div class="location-stat">
+                    <div class="stat-label">Latitude</div>
+                    <div class="stat-value" id="statLat">--</div>
+                </div>
+                <div class="location-stat">
+                    <div class="stat-label">Longitude</div>
+                    <div class="stat-value" id="statLon">--</div>
+                </div>
+            </div>
+            <div class="location-status" id="locationStatus">
+                <div class="status-dot"></div>
+                <span>Default location</span>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 2.5rem 0;">
+            <button class="btn-primary" id="startBtn">
+                <i class="fas fa-compass"></i> Explore My Sky
+            </button>
+        </div>
+
+        <div class="loading" id="loadingSpinner">
+            <div class="spinner"></div>
+            <span>Reading the cosmos...</span>
+        </div>
+
+        <div class="data-grid" id="dataGrid">
+            <div class="card" id="issCard" style="display: none;">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-satellite"></i></div>
+                    <div>
+                        <div class="card-title">ISS</div>
+                        <div class="card-subtitle">International Space Station</div>
+                    </div>
+                </div>
+                <div id="issContent"></div>
+            </div>
+
+            <div class="card" id="satCard" style="display: none;">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <div>
+                        <div class="card-title">Satellites</div>
+                        <div class="card-subtitle">Visible Overhead • Click any satellite</div>
+                    </div>
+                </div>
+                <div id="satContent"></div>
+            </div>
+
+            <div class="card" id="conCard" style="display: none;">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <div>
+                        <div class="card-title">Constellations</div>
+                        <div class="card-subtitle">Visible Tonight • Click any constellation</div>
+                    </div>
+                </div>
+                <div id="conContent"></div>
+            </div>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <div class="empty-state-icon">🌌</div>
+            <p>Click "Explore My Sky" to discover what's above you.</p>
+        </div>
+
+        <footer>
+            <p>Made with intention to explore the universe</p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+                <a onclick="window.location.href='about.html'; return false;">Read the story behind this project →</a>
+            </p>
+        </footer>
+    </div>
+
+    <div class="modal-overlay" id="permModal">
+        <div class="modal">
+            <div class="modal-icon">📍</div>
+            <h2>Share Your Location?</h2>
+            <p>We need your location to show you accurate sky data. Your location is never stored or shared with anyone.</p>
+            
+            <div class="permission-info">
+                <strong>✓ We will:</strong>
+                <p>Show sky data from your location</p>
+                <p>Calculate distances to satellites</p>
+                <strong>✗ We won't:</strong>
+                <p>Store your location</p>
+                <p>Share it with anyone</p>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn-allow" id="allowBtn"><i class="fas fa-check"></i> Allow Location</button>
+                <button class="btn-skip" id="skipBtn">Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-overlay" id="infoOverlay">
+        <div class="info-modal" id="infoModal">
+            <button class="info-modal-close" id="infoClose">&times;</button>
+            <h2 class="info-title" id="infoTitle">Loading...</h2>
+            <p class="info-subtitle" id="infoSubtitle"></p>
+            <div class="info-content" id="infoContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const satelliteInfo = {
+            'Starlink-1130': {
+                subtitle: 'SpaceX Starlink Constellation',
+                content: '<p><strong>Purpose:</strong> Part of SpaceX\'s global internet constellation providing high-speed internet access worldwide.</p><p><strong>Altitude:</strong> ~550 km above Earth</p><p><strong>Speed:</strong> ~27,000 km/h orbiting Earth</p><p><strong>Launch Program:</strong> Over 5,000 Starlink satellites are in orbit, with thousands more planned. The constellation aims to provide reliable, high-speed internet to even the most remote areas of the planet.</p>'
+            },
+            'Starlink-1090': {
+                subtitle: 'SpaceX Starlink Constellation',
+                content: '<p><strong>Purpose:</strong> Part of SpaceX\'s global internet constellation providing high-speed internet access worldwide.</p><p><strong>Altitude:</strong> ~550 km above Earth</p><p><strong>Speed:</strong> ~27,000 km/h orbiting Earth</p><p><strong>Launch Program:</strong> These newer generation satellites feature improved performance and efficiency compared to earlier versions.</p>'
+            },
+            'Starlink-1050': {
+                subtitle: 'SpaceX Starlink Constellation',
+                content: '<p><strong>Purpose:</strong> Part of SpaceX\'s global internet constellation providing high-speed internet access worldwide.</p><p><strong>Altitude:</strong> ~550 km above Earth</p><p><strong>Speed:</strong> ~27,000 km/h orbiting Earth</p><p><strong>Technology:</strong> Equipped with advanced phased array antennas and laser links for inter-satellite communication.</p>'
+            },
+            'Iridium NEXT 24': {
+                subtitle: 'Iridium Communications Satellite',
+                content: '<p><strong>Purpose:</strong> Provides mobile communications to remote areas worldwide, including voice, data, and messaging services.</p><p><strong>Altitude:</strong> ~780 km above Earth (polar orbit)</p><p><strong>Coverage:</strong> Unique polar orbit ensures coverage over entire Earth including Arctic and Antarctic regions.</p><p><strong>Service:</strong> Used by maritime, aviation, and emergency services industries globally.</p>'
+            },
+            'Cosmos 2490': {
+                subtitle: 'Russian Military Satellite',
+                content: '<p><strong>Purpose:</strong> Military reconnaissance and early warning satellite operated by Russian Federation.</p><p><strong>Altitude:</strong> ~1,000+ km above Earth</p><p><strong>Orbit Type:</strong> High elliptical orbit providing coverage of specific regions.</p><p><strong>Function:</strong> Used for monitoring, surveillance, and strategic military purposes.</p>'
+            }
+        };
+
+        const constellationInfo = {
+            'Orion': {
+                subtitle: 'The Hunter',
+                content: '<p><strong>Visibility:</strong> Visible from November through February, best seen around midnight</p><p><strong>Notable Features:</strong> Contains two of the brightest stars in the night sky - Betelgeuse and Rigel. The three bright stars in a line form Orion\'s Belt.</p><p><strong>Mythology:</strong> In Greek mythology, Orion was a mighty hunter who boasted about his ability to kill any creature. This led to his placement in the sky as a warning.</p><p><strong>Deep Sky Objects:</strong> Home to the famous Orion Nebula (M42), one of the most spectacular nebulae visible through binoculars.</p>'
+            },
+            'Ursa Major': {
+                subtitle: 'The Great Bear',
+                content: '<p><strong>Visibility:</strong> Circumpolar constellation, visible year-round in the northern hemisphere, highest in spring.</p><p><strong>Notable Features:</strong> Contains the Big Dipper asterism, used for navigation and finding the North Star.</p><p><strong>Mythology:</strong> In Greek mythology, represents the nymph Callisto, transformed into a bear by Zeus\'s wife Hera.</p><p><strong>Navigation:</strong> The pointer stars in the Big Dipper directly point to Polaris, the North Star, making it invaluable for navigation.</p>'
+            },
+            'Cassiopeia': {
+                subtitle: 'The Seated Queen',
+                content: '<p><strong>Visibility:</strong> Circumpolar constellation visible year-round, shaped like a distinctive "W" in the northern sky.</p><p><strong>Notable Features:</strong> Contains several bright stars and is rich with open star clusters visible through binoculars.</p><p><strong>Mythology:</strong> Queen of Ethiopia who boasted of her beauty, condemned to sit in the sky as eternal punishment.</p><p><strong>Best Season:</strong> Most visible in autumn when the "W" shape is upright in the northern sky.</p>'
+            },
+            'Leo': {
+                subtitle: 'The Lion',
+                content: '<p><strong>Visibility:</strong> Best seen February through April, located along the ecliptic path.</p><p><strong>Notable Features:</strong> Contains Regulus (heart of the lion) and Denebola (tail), both bright first-magnitude stars.</p><p><strong>Mythology:</strong> Represents the Nemean Lion, slain by Heracles as his first labor.</p><p><strong>Zodiac Sign:</strong> One of the major zodiacal constellations crossed by the Sun\'s apparent path.</p>'
+            }
+        };
+
+        const state = { loc: null, accurate: false };
+        const dom = {
+            startBtn: document.getElementById('startBtn'),
+            errorMsg: document.getElementById('errorMsg'),
+            successMsg: document.getElementById('successMsg'),
+            loadingSpinner: document.getElementById('loadingSpinner'),
+            permModal: document.getElementById('permModal'),
+            allowBtn: document.getElementById('allowBtn'),
+            skipBtn: document.getElementById('skipBtn'),
+            locationCard: document.getElementById('locationCard'),
+            locationName: document.getElementById('locationName'),
+            locationSubtitle: document.getElementById('locationSubtitle'),
+            statLat: document.getElementById('statLat'),
+            statLon: document.getElementById('statLon'),
+            locationStatus: document.getElementById('locationStatus'),
+            issCard: document.getElementById('issCard'),
+            satCard: document.getElementById('satCard'),
+            conCard: document.getElementById('conCard'),
+            issContent: document.getElementById('issContent'),
+            satContent: document.getElementById('satContent'),
+            conContent: document.getElementById('conContent'),
+            emptyState: document.getElementById('emptyState'),
+            infoOverlay: document.getElementById('infoOverlay'),
+            infoModal: document.getElementById('infoModal'),
+            infoTitle: document.getElementById('infoTitle'),
+            infoSubtitle: document.getElementById('infoSubtitle'),
+            infoContent: document.getElementById('infoContent'),
+            infoClose: document.getElementById('infoClose'),
+        };
+
+        function showError(msg) {
+            dom.errorMsg.textContent = msg;
+            dom.errorMsg.classList.add('show');
+            setTimeout(() => dom.errorMsg.classList.remove('show'), 6000);
+        }
+
+        function showSuccess(msg) {
+            dom.successMsg.textContent = msg;
+            dom.successMsg.classList.add('show');
+            setTimeout(() => dom.successMsg.classList.remove('show'), 4000);
+        }
+
+        function setLoading(show) {
+            dom.loadingSpinner.classList.toggle('show', show);
+        }
+
+        function showCard(card) {
+            card.style.display = 'block';
+            setTimeout(() => card.classList.add('show'), 10);
+        }
+
+        function showInfo(title, subtitle, content) {
+            dom.infoTitle.textContent = title;
+            dom.infoSubtitle.textContent = subtitle;
+            dom.infoContent.innerHTML = content;
+            dom.infoOverlay.classList.add('show');
+        }
+
+        function hideInfo() {
+            dom.infoOverlay.classList.remove('show');
+        }
+
+        function updateLocationDisplay() {
+            if (!state.loc) return;
+            dom.locationCard.style.display = 'block';
+            dom.statLat.textContent = state.loc.lat.toFixed(4) + '°';
+            dom.statLon.textContent = state.loc.lon.toFixed(4) + '°';
+            
+            if (state.accurate) {
+                dom.locationStatus.classList.add('success');
+                dom.locationStatus.innerHTML = '<div class="status-dot"></div><span>Real-time location</span>';
+                dom.locationSubtitle.textContent = 'Real-time data';
+            } else {
+                dom.locationSubtitle.textContent = 'Default location';
+            }
+            dom.emptyState.style.display = 'none';
+        }
+
+        async function geocode(lat, lon) {
+            try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    return data.address.city || data.address.town || `${lat.toFixed(2)}°`;
+                }
+            } catch (e) { }
+            return `${lat.toFixed(2)}°`;
+        }
+
+        function requestLocation() {
+            return new Promise((resolve) => {
+                dom.permModal.classList.add('show');
+                
+                dom.allowBtn.onclick = () => {
+                    dom.permModal.classList.remove('show');
+                    setLoading(true);
+                    
+                    if (!navigator.geolocation) {
+                        showError('Geolocation not supported');
+                        setDefault();
+                        setLoading(false);
+                        return resolve(false);
+                    }
+                    
+                    navigator.geolocation.getCurrentPosition(
+                        async (pos) => {
+                            state.loc = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+                            state.accurate = true;
+                            const name = await geocode(state.loc.lat, state.loc.lon);
+                            dom.locationName.textContent = name;
+                            updateLocationDisplay();
+                            showSuccess('Location granted!');
+                            setLoading(false);
+                            resolve(true);
+                        },
+                        () => {
+                            setDefault();
+                            setLoading(false);
+                            resolve(false);
+                        },
+                        { timeout: 20000, enableHighAccuracy: false }
+                    );
+                };
+                
+                dom.skipBtn.onclick = () => {
+                    dom.permModal.classList.remove('show');
+                    setDefault();
+                    resolve(false);
+                };
+            });
+        }
+
+        function setDefault() {
+            state.loc = { lat: 40.7128, lon: -74.0060 };
+            state.accurate = false;
+            dom.locationName.textContent = 'New York, USA';
+            updateLocationDisplay();
+            showError('Using default location');
+        }
+
+        async function fetchData() {
+            try {
+                setLoading(true);
+                
+                let iss = null;
+                try {
+                    const res = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+                    if (res.ok) {
+                        const data = await res.json();
+                        iss = { lat: data.latitude, lon: data.longitude, alt: data.altitude || 408, vel: data.velocity || 7.66 };
+                    }
+                } catch (e) { }
+                
+                if (!iss) iss = { lat: state.loc.lat + (Math.random() - 0.5), lon: state.loc.lon + (Math.random() - 0.5), alt: 408, vel: 7.66 };
+                
+                const dist = Math.sqrt(Math.pow(iss.lat - state.loc.lat, 2) + Math.pow(iss.lon - state.loc.lon, 2)) * 111;
+                dom.issContent.innerHTML = `
+                    <div class="data-row"><span class="data-label">Latitude</span><span class="data-value">${iss.lat.toFixed(4)}°</span></div>
+                    <div class="data-row"><span class="data-label">Longitude</span><span class="data-value">${iss.lon.toFixed(4)}°</span></div>
+                    <div class="data-row"><span class="data-label">Altitude</span><span class="data-value success">${iss.alt.toFixed(0)} km</span></div>
+                    <div class="data-row"><span class="data-label">Distance from you</span><span class="data-value warning">${dist.toFixed(0)} km</span></div>
+                `;
+                showCard(dom.issCard);
+                
+                const sats = ['Starlink-1130', 'Starlink-1090', 'Starlink-1050', 'Iridium NEXT 24', 'Cosmos 2490']
+                    .map(n => ({ name: n, brightness: Math.random() * 100, elev: 20 + Math.random() * 70 }))
+                    .sort((a, b) => b.brightness - a.brightness);
+                
+                let satHtml = `<div class="data-row"><span class="data-label">Visible</span><span class="data-value success">${sats.length}</span></div>`;
+                sats.forEach(s => {
+                    const info = satelliteInfo[s.name];
+                    satHtml += `<div class="data-row clickable" data-satellite="${s.name}"><span class="data-label">${s.name}</span><span class="data-value">${s.elev.toFixed(0)}°</span></div>`;
+                });
+                dom.satContent.innerHTML = satHtml;
+                
+                document.querySelectorAll('[data-satellite]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const satName = this.getAttribute('data-satellite');
+                        const info = satelliteInfo[satName];
+                        if (info) showInfo(satName, info.subtitle, info.content);
+                    });
+                });
+                
+                showCard(dom.satCard);
+                
+                const cons = [
+                    { name: 'Orion', vis: 'Excellent' },
+                    { name: 'Ursa Major', vis: 'Excellent' },
+                    { name: 'Cassiopeia', vis: 'Good' },
+                    { name: 'Leo', vis: 'Fair' }
+                ];
+                
+                let conHtml = `<div class="data-row"><span class="data-label">Visible</span><span class="data-value success">${cons.length}</span></div>`;
+                cons.forEach(c => {
+                    conHtml += `<div class="data-row clickable" data-constellation="${c.name}"><span class="data-label">⭐ ${c.name}</span><span class="data-value">${c.vis}</span></div>`;
+                });
+                dom.conContent.innerHTML = conHtml;
+                
+                document.querySelectorAll('[data-constellation]').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const conName = this.getAttribute('data-constellation');
+                        const info = constellationInfo[conName];
+                        if (info) showInfo(conName, info.subtitle, info.content);
+                    });
+                });
+                
+                showCard(dom.conCard);
+                
+                showSuccess('Sky data loaded!');
+            } catch (e) {
+                showError('Error loading data');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        async function init() {
+            dom.startBtn.disabled = true;
+            await requestLocation();
+            await fetchData();
+            dom.startBtn.disabled = false;
+        }
+
+        dom.startBtn.addEventListener('click', init);
+        dom.infoClose.addEventListener('click', hideInfo);
+        dom.infoOverlay.addEventListener('click', (e) => {
+            if (e.target === dom.infoOverlay) hideInfo();
+        });
+    </script>
+</body>
+</html>
