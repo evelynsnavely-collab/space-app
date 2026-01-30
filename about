@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Above Me Now? - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0e1a;
+            --dark-blue: #0f1a35;
+            --deep-purple: #1a0f35;
+            --navy: #0d1b2a;
+            --accent-purple: #7c3aed;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: rgba(124, 58, 237, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Instrument Sans', sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-blue) 25%, var(--navy) 50%, var(--deep-purple) 75%, var(--black) 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+            animation: drift 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: slideDown 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--accent-cyan);
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-button:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(120deg, var(--accent-purple) 0%, var(--accent-cyan) 50%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin: 3rem 0 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin: 2rem 0 1rem;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        a:hover {
+            color: var(--accent-pink);
+            border-bottom-color: var(--accent-pink);
+        }
+
+        code {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+        }
+
+        pre {
+            background: rgba(15, 26, 53, 0.5);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--accent-cyan);
+        }
+
+        .section {
+            background: linear-gradient(135deg, rgba(15, 26, 53, 0.7) 0%, rgba(26, 15, 53, 0.5) 100%);
+            border: 1.5px solid var(--border-color);
+            border-radius: 18px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(124, 58, 237, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: rgba(15, 26, 53, 0.5);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(6, 182, 212, 0.1);
+        }
+
+        .card h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 5rem;
+        }
+
+        footer a {
+            color: var(--accent-cyan);
+        }
+
+        .highlight {
+            background: rgba(124, 58, 237, 0.1);
+            border-left: 3px solid var(--accent-purple);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 2rem 1.5rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to App
+        </a>
+
+        <header>
+            <h1>What's Above Me Now?</h1>
+            <p class="subtitle">A real-time space discovery experience that reveals the invisible infrastructure orbiting above you.</p>
+        </header>
+
+        <section class="section">
+            <h2>🌌 What Is This?</h2>
+            <p><strong>What's Above Me Now?</strong> transforms your location into a gateway to space. In seconds, you'll discover:</p>
+            <ul>
+                <li><strong>📡 The International Space Station</strong> - Real-time position, altitude, distance from you</li>
+                <li><strong>🛰️ Visible Satellites</strong> - Starlink, Iridium, Cosmos, and others passing overhead right now</li>
+                <li><strong>⭐ Constellations</strong> - What's visible tonight with deep mythology, science, and discovery</li>
+            </ul>
+            <p>No approximations. No generic data. <strong>Real, live data</strong> tied to your actual location, updated as objects move across the sky.</p>
+        </section>
+
+        <section class="section">
+            <h2>✨ Why It's Cool</h2>
+            <h3>The Wow Factor</h3>
+            <p>Most people look up at the night sky and see stars. This app lets you see humanity's relationship with space:</p>
+            <ul>
+                <li>The ISS carrying astronauts <em>right now</em>, 250 miles above you</li>
+                <li>Starlink satellites providing internet to remote villages</li>
+                <li>The same constellations that guided explorers and inspired myths thousands of years ago</li>
+                <li>All happening simultaneously, all visible with just your phone</li>
+            </ul>
+
+            <h3>Design Philosophy</h3>
+            <p>Built to feel as beautiful and intentional as the cosmos itself:</p>
+            <ul>
+                <li><strong>Dark space aesthetic</strong> - Deep blue, purple, black with neon cyan accents evoke the actual cosmos</li>
+                <li><strong>Smooth, premium animations</strong> - Cubic-bezier easing and staggered timings make everything feel alive</li>
+                <li><strong>Information architecture that respects users</strong> - Cards cascade in. Hover states invite exploration. Modals fade in seamlessly</li>
+                <li><strong>Geolocation awareness</strong> - Your location shapes everything; the app is personalized to YOUR sky</li>
+                <li><strong>Progressive disclosure</strong> - Simple by default, deep when you want it</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>🚀 How It Works</h2>
+            <h3>Architecture</h3>
+            <p><strong>Single-file HTML/CSS/JavaScript</strong> - Intentionally kept lean and focused.</p>
+            <p>No frameworks. No dependencies. Just vanilla web APIs doing what they do best.</p>
+
+            <h3>Key Features</h3>
+            <h4>Real-Time Data</h4>
+            <p>Three data sources deliver live space information:</p>
+            <ul>
+                <li><strong>ISS Position</strong> - From NASA's wheretheiss.at API</li>
+                <li><strong>Satellites</strong> - Starlink, Iridium, Cosmos with elevation calculations</li>
+                <li><strong>Constellations</strong> - Major constellations with visibility and context</li>
+            </ul>
+
+            <h4>Geolocation</h4>
+            <p>Uses the Geolocation API to determine your exact location, then:</p>
+            <ul>
+                <li>Calculates what's actually visible from YOUR coordinates</li>
+                <li>Reverse geocodes to show your city name</li>
+                <li>Falls back to NYC if permission is denied</li>
+                <li>Shows whether data is real-time or default</li>
+            </ul>
+
+            <h4>Interactive Information</h4>
+            <p>Click any satellite or constellation to unlock:</p>
+            <ul>
+                <li>Detailed descriptions and context</li>
+                <li>Historical and mythological information</li>
+                <li>Scientific facts and mission details</li>
+                <li>All delivered in smooth, beautiful modals</li>
+            </ul>
+
+            <h3>Design Decisions</h3>
+            <p><strong>Color Palette</strong> - Intentionally chosen to evoke actual space:</p>
+            <div class="highlight">
+                <code>#0a0e1a</code> Deep space black<br>
+                <code>#0f1a35</code> Nebula blue<br>
+                <code>#1a0f35</code> Cosmic purple<br>
+                <code>#7c3aed</code> Energy/technology (accent)<br>
+                <code>#06b6d4</code> Star light (accent)<br>
+                <code>#ec4899</code> Aurora/cosmic rays (accent)
+            </div>
+
+            <p><strong>Typography</strong> - Every choice is intentional:</p>
+            <ul>
+                <li><strong>Space Grotesk</strong> - Bold, modern, distinctive headlines</li>
+                <li><strong>Instrument Sans</strong> - Clean, readable, professional body text</li>
+                <li>Generous letter-spacing for breathing room</li>
+                <li>Responsive sizing with CSS clamp()</li>
+            </ul>
+
+            <p><strong>Animations</strong> - All transitions use cubic-bezier(0.34, 1.56, 0.64, 1) for:</p>
+            <ul>
+                <li>Natural deceleration (not linear)</li>
+                <li>Slight bounce for premium feel</li>
+                <li>Consistency across the entire app</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>🛠️ Technical Stack</h2>
+            <p><strong>Zero Dependencies</strong> - Built with vanilla HTML, CSS, and JavaScript.</p>
+            
+            <h3>Browser APIs Used</h3>
+            <ul>
+                <li>Geolocation API - Get user's location with permission</li>
+                <li>Fetch API - Real-time data from external APIs</li>
+                <li>DOM APIs - Dynamic content rendering</li>
+                <li>CSS Grid/Flexbox - Responsive layout</li>
+                <li>CSS Animations - Smooth transitions and effects</li>
+            </ul>
+
+            <h3>External Resources</h3>
+            <ul>
+                <li><strong>ISS Tracker API</strong> - wheretheiss.at (free, no auth)</li>
+                <li><strong>Reverse Geocoding</strong> - OpenStreetMap Nominatim</li>
+                <li><strong>Fonts</strong> - Google Fonts (Space Grotesk, Instrument Sans)</li>
+                <li><strong>Icons</strong> - Font Awesome 6.4</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>🎯 Portfolio Quality</h2>
+            <p>This project demonstrates:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h4>🎨 Design Excellence</h4>
+                    <p>Visual identity, attention to detail, UX flows, responsive design—all intentional and cohesive.</p>
+                </div>
+                <div class="card">
+                    <h4>⚙️ Technical Skill</h4>
+                    <p>Vanilla JS, CSS mastery, API integration, performance optimization, clean architecture.</p>
+                </div>
+                <div class="card">
+                    <h4>🧠 Creative Thinking</h4>
+                    <p>Meaningful aesthetic choices, thoughtful feature design, edge case handling, polish.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🔮 What Could Be Next</h2>
+            
+            <h3>Near-term Enhancements</h3>
+            <ul>
+                <li>Weather integration (cloud cover, seeing conditions)</li>
+                <li>Dark sky site finder (where to go for best viewing)</li>
+                <li>Event calendar (upcoming eclipses, meteor showers)</li>
+                <li>Screenshot sharing (capture discoveries)</li>
+                <li>Observation logging (track what you've seen)</li>
+            </ul>
+
+            <h3>Medium-term Features</h3>
+            <ul>
+                <li>Social integration (share with friends)</li>
+                <li>Photography mode (optimal angles and times)</li>
+                <li>Equipment guides (what telescope to buy)</li>
+                <li>Community feed (what others are discovering)</li>
+                <li>Gamification (badges, challenges, progression)</li>
+            </ul>
+
+            <h3>Long-term Vision</h3>
+            <ul>
+                <li>Live observing sessions (video chat while stargazing)</li>
+                <li>Crowdsourced observations (contribute to citizen science)</li>
+                <li>AR navigation (walk to better dark skies)</li>
+                <li>AI recommendations (discover based on interests)</li>
+                <li>Mobile apps (native iOS/Android with more features)</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>📖 Key Learnings</h2>
+            <p><strong>What I learned building this:</strong></p>
+            <ul>
+                <li><strong>Aesthetic Intention</strong> - Every color, animation, spacing choice should mean something</li>
+                <li><strong>Data as Story</strong> - Real information (ISS position, satellite names) is more compelling than fictional data</li>
+                <li><strong>Smooth Interactions</strong> - Cubic-bezier timing makes interfaces feel premium</li>
+                <li><strong>Progressive Disclosure</strong> - Simple first, complex on demand</li>
+                <li><strong>Geolocation Magic</strong> - Personalizing content by location creates instant connection</li>
+                <li><strong>Modal Design</strong> - Beautiful modals feel like discoveries, not interruptions</li>
+                <li><strong>Animation Sequencing</strong> - Staggered timing creates rhythm and anticipation</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>🙏 Acknowledgments</h2>
+            <ul>
+                <li><strong>ISS Data</strong> - wheretheiss.at (NASA/ESA data)</li>
+                <li><strong>Reverse Geocoding</strong> - OpenStreetMap Nominatim</li>
+                <li><strong>Fonts</strong> - Google Fonts</li>
+                <li><strong>Icons</strong> - Font Awesome</li>
+                <li><strong>Inspiration</strong> - The night sky itself</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>Built with curiosity, designed with intention, and a deep respect for the cosmos.</p>
+            <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--text-secondary);">
+                🌌 What's above you right now?
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
